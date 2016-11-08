@@ -61,12 +61,15 @@ class Quizzer(telepot.helper.CallbackQueryOriginHandler):
         if query_data != 'start':
             self._score[self._answer == int(query_data)] += 1
 
+		text = '%d out of %d' % (self._score[True], self._score[True]+self._score[False])
+		self.editor.editMessageText(text, reply_markup=None)
+
         self._answer = self._show_next_question()
 
-    def on__idle(self, event):
-        text = '%d out of %d' % (self._score[True], self._score[True]+self._score[False])
-        self.editor.editMessageText(text, reply_markup=None)
-        self.close()
+    # def on__idle(self, event):
+    #     text = '%d out of %d' % (self._score[True], self._score[True]+self._score[False])
+    #     self.editor.editMessageText(text, reply_markup=None)
+    #     self.close()
 
 
 TOKEN = sys.argv[1]
