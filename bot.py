@@ -75,7 +75,7 @@ bot = telepot.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, QuizStarter, timeout=3),
     pave_event_space()(
-        per_callback_query_origin(), create_open, Quizzer, timeout=10),
+        per_callback_query_origin(), create_open, Quizzer, timeout=2),
 ])
 
 bot.message_loop(run_forever='Listening ...')
