@@ -43,7 +43,7 @@ class FlightChecker(telepot.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
     	super(FlightChecker, self).__init__(*args, **kwargs)
 
-    	threading.Timer(5.0, self.checkFlight).start()
+    	threading.Timer(3600.0, self.checkFlight).start()
 
     def checkFlight(self):
 		print('checking flight')
