@@ -43,6 +43,8 @@ class FlightChecker(telepot.helper.ChatHandler):
 
 
     def on_chat_message(self, msg):
+    	print('Some msg recived')
+    	
 		command = msg['text'].strip().lower()
 		self.chat_id = msg['chat']['id']
 
@@ -55,7 +57,7 @@ TOKEN = sys.argv[1]
 
 bot = telepot.DelegatorBot(TOKEN, [
     pave_event_space()(
-        per_chat_id(), create_open, FlightChecker, timeout=10
+        per_chat_id(), create_open, FlightChecker, timeout=1
     ),
 ])
 bot.message_loop(run_forever='Listening ...')
