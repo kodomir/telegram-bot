@@ -43,7 +43,11 @@ class FlightChecker(telepot.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
     	super(FlightChecker, self).__init__(*args, **kwargs)
 
-    	threading.Timer(900.0, self.checkFlight).start()
+    	threading.Timer(TIME, self.startCheck).start()
+
+    def startCheck(self):
+    	threading.Timer(TIME, self.startCheck).start()
+    	self.checkFlight()
 
     def checkFlight(self):
 		print('checking flight')
@@ -64,7 +68,7 @@ class FlightChecker(telepot.helper.ChatHandler):
 						self.sender.sendMessage('All right, ceep calrm.\nFlight date: ' + flight['date'])
 
 		if found == False:
-			self.sender.sendMessage('Can\'t find flight check it. http://www.pulkovoairport.ru')
+			self.sender.sendMessage('Can\'t find flight check it. http://www.pulkovoairport.ru/')
 			print('Flight not found')
 
 
@@ -80,6 +84,7 @@ class FlightChecker(telepot.helper.ChatHandler):
         # self.sender.sendMessage()
 
 TOKEN = sys.argv[1]
+TIME = float(sys.argv[2]) if len(sys.argv) > 2 else 900.0
 
 bot = telepot.DelegatorBot(TOKEN, [
     pave_event_space()(
