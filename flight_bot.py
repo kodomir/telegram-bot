@@ -37,6 +37,7 @@ import urllib2
 import telepot
 import threading
 
+from datetime import datetime
 from telepot.delegate import per_chat_id, create_open, pave_event_space
 
 class FlightChecker(telepot.helper.ChatHandler):
@@ -50,7 +51,7 @@ class FlightChecker(telepot.helper.ChatHandler):
     	self.checkFlight()
 
     def checkFlight(self):
-		print('checking flight')
+		print(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '. checking flight')
 
 		response = urllib2.urlopen('http://www.pulkovoairport.ru/f/flights/cur/ru_dep_2.js?0.17094681738165363')
 		data = json.load(response)
@@ -71,12 +72,16 @@ class FlightChecker(telepot.helper.ChatHandler):
 			self.sender.sendMessage('Can\'t find flight check it. http://www.pulkovoairport.ru/')
 			print('Flight not found')
 
+		print('\n')
+
 
     def on_chat_message(self, msg):
 		message = msg
 		command = message['text'].strip().lower()
 
-		print('Some msg recived')
+		print('\n')
+		print(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + '. some msg recived')
+		print('\n')
 
 		if (command == '/start') or (command == '/force'):
 			self.checkFlight()
